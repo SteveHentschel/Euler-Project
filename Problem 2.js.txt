@@ -1,0 +1,11 @@
+var eSum = 2, seq1 = 1, seq2 = 2, seqN = 0;
+do  {
+    seqN = seq1 + seq2;
+    if (seqN % 2 ===0) {
+        eSum += seqN;
+    }
+    seq1 = seq2;
+    seq2 = seqN;
+} while (seqN < 4000000);
+
+console.log('Even Sums = ', eSum);
