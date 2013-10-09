@@ -1,0 +1,26 @@
+//  Semi brute force method with prime check (takes 25 secs in CA interpreter)
+
+var isPrime = function(num) {               // Time Savers:
+    if (num % 2 === 0) return false;        //   rule out even numbers
+    for (i=3; i<=Math.sqrt(num); i+=2) {    //   only check odd numbers
+        if (num % i === 0)  {               //   loop to sqrt only
+            return false;
+        }
+    }
+    return true;
+};
+
+// isPrime(47);                            // test isPrime
+
+var mgcNum = 600851475143, targNum;
+for (x=2; x<=mgcNum/2; x++) {           // Work from large to small ...
+    if(mgcNum%x === 0) {                //   is this a factor ?
+        targNum = mgcNum/x;
+//        console.log('calling isPrime with ',x,targNum);
+        if (isPrime(targNum)) {         //   is this a prime ?
+            console.log(targNum);
+            break;                      //   if so, then done.
+        }
+    }
+}
+console.log('Finished');
