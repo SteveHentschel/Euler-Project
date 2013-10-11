@@ -1,0 +1,19 @@
+// Brute force again for me.  I'm no mathematician.
+// Mathematics version of prime factorization is very elegant and needs no computer.
+
+
+var tFunc = function(num)   {           //  only test 11-20, as 1-10 are multiples      
+    for (x=11; x<=20; x++)   {
+        if (num % x !== 0)    {
+            return false;
+        }
+    }
+    return true;
+};
+
+var cNum = 20, test = false;            // takes about 3 secs in CA editor
+while (test === false)    {         
+    if (tFunc(cNum) === false) cNum+=20;
+    else test = true;
+}
+console.log("Smallest Multiple =", cNum);
