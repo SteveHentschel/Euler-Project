@@ -1,0 +1,19 @@
+// Finally I did the mathematical solution first:
+// Square of the sum via triangle number formula, and Sum of squares from a Google search 
+
+var n=100, squareOfSum, sumOfSquares;
+
+squareOfSum = Math.pow(n*(n+1)/2, 2);
+sumOfSquares = n * (n+1) * (2*n + 1) / 6;
+
+console.log("Difference: ",squareOfSum, sumOfSquares, squareOfSum - sumOfSquares);
+
+
+// But it turns out the brute force via computing is pretty simple as well (and fast)
+
+var sum=0, sqr=0;
+for (i=1; i<=n; i++) {
+   sum += i;
+   sqr += i * i;
+}
+console.log("Difference: ",sum*sum, sqr, sum*sum - sqr);
