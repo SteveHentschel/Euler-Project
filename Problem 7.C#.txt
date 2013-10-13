@@ -1,0 +1,33 @@
+        
+// Problem 7 - find the 10001st prime number.
+
+// My first Euler Project in C#.  Will be moving to this language with Visual Studio.
+// Not real practical for console apps, but I need to get used to C#.
+
+
+// Next time Euler deals with primes, I'll build the table of primes and check for new
+//   primes by factoring with the previous primes.  (Will be faster for larger primes.)
+
+
+	static void Main(string[] args)
+        {
+            int n = 10001, count = 1; 
+            long indx = 2;
+
+            while (count < n)
+            {
+                indx++; 
+                if (isPrime(indx)) count++;   
+            }
+           
+            Console.WriteLine(indx);
+            Console.ReadKey(true);
+        }
+        private static bool isPrime(long tNum)   {
+            if (tNum % 2 == 0) return false;
+            for (long i = 3; i <= Math.Floor(Math.Sqrt(tNum)); i += 2)
+            { 
+                if (tNum % i == 0) return false;
+            }
+            return true;
+        }
