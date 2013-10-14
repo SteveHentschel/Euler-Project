@@ -1,0 +1,27 @@
+//  I copy/pasted the big number into a file so I could learn basic C# file access.
+//  Kept the  number as a string (couldn't find a good conversion process yet),
+//  and just did the 5 digit test on chars minus ASCII zero.
+
+static void Main(string[] args)
+        {
+            int prod =1, maxProd = 0;
+            string bigNum = null;
+            string p8Num = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorial Examples\\Euler Project\\Prob8Number.txt";
+            Console.WriteLine(System.IO.File.Exists(p8Num));        // File path ok?
+
+            System.IO.StreamReader readFile;                        // Set reader object
+            readFile = new System.IO.StreamReader(p8Num);           // Assign to number file
+
+            do{
+                bigNum += readFile.ReadLine();                      // Read into string array
+            } while (readFile.Peek() != -1);
+
+            for (int i = 0; i <= bigNum.Length - 5; i++)            //  Loop thru big number string
+            {                                                       //  Test 5 chars at a time, minus ASCII zero
+                for (int j = 0; j < 5; j++) prod *= bigNum[i + j] - '0';
+                if (prod > maxProd) maxProd = prod;                 //  Test if largest
+                prod = 1;                                           //  Reset test
+            }
+            Console.WriteLine(maxProd);
+            Console.ReadKey(true);
+        }
