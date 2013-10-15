@@ -1,0 +1,38 @@
+
+//  Thought about this one for a long time.  Started out making an array of squares, 
+//    but then looked at the small Pythagorean triplets (3,4,5 & 5,12,13) and saw
+//    some patterns for looping faster.  Learned how to format .WriteLines this time - woot !
+
+//    Should be noted this only finds the triplets that add up to triSum.
+
+
+static void Main(string[] args)
+        {
+            int triSum = 1000;                              // a + b + c = 1000
+            bool loopFlag = true;
+            int a=0, b=0, c=0;
+
+            while (loopFlag)                                // outer loop increments a
+            {
+                a += 1;                                     // start with 1, 2, 997              
+                b = a + 1;
+                c = triSum - a - b;
+
+                while (b < c)                               // inner loop raises b, lowers c
+                {
+                    if (a*a + b*b == c*c)                   //   until Pythagoras is met
+                    {
+                        Console.WriteLine("a: {0:g} b: {1:g} c: {2:g}", a, b, c);
+                        loopFlag = false;
+                        break;
+                    }
+                    else
+                    {
+                        b++;
+                        c--;
+                    }
+                }
+            }
+                Console.WriteLine("Product a*b*c = {0:g}", a * b * c);
+                Console.ReadKey(true);
+        }
