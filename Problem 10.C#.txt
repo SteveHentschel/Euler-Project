@@ -1,0 +1,32 @@
+//  I used math solution this time, creating a list of primes and using the list to qualify
+//  subsequent primes.  Learned about lists with this problem, and the importance of not
+//  comparing an int to a double without first converting the double. ;)
+
+
+static void Main(string[] args)
+        {
+            List<int> primes = new List<int>();
+            long pSum = 2; 
+            int max = 2000000;
+            bool isPrime;
+            
+            primes.Add(2);                                      // Start with 2 in the box
+            for (int i=3; i<max; i+=2) {                        // Loop to max, check odds only
+                int j = 0;
+                isPrime = true;
+                
+                do  {                                           //  Loop thru current list of primes
+                    if (i % primes[j] == 0) isPrime = false;    //    if i is divisible by a prime, 
+                    j++;                                        //     it's not a prime     
+                } while (isPrime && j<(int)(Math.Sqrt(primes[primes.Count-1])));
+
+                if (isPrime)                                    // if i not divisible by any previous prime,
+                {
+         //           Console.WriteLine("count: {0:g} i: {1:g}", primes.Count, i);
+                    primes.Add(i);                              //   add i to the prime list
+                    pSum += i;                                  //   add i to the prime sum total.
+                }
+            }
+                Console.WriteLine("Prime Sums = {0:g}", pSum);
+                Console.ReadKey(true);
+        }
