@@ -1,0 +1,77 @@
+static void Main(string[] args)
+        {
+            int[,] numArray = new int[20,20];
+            string oneLine = null;
+            int maxProd = 0;
+
+
+            string p11Array = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorial Examples\\Euler Project\\Prob11Array.txt";
+            Console.WriteLine(System.IO.File.Exists(p11Array));         // File path ok?
+
+            System.IO.StreamReader readFile;                            // Set reader object
+            readFile = new System.IO.StreamReader(p11Array);            // Assign to array file
+            
+            for (int row=0; row<20; row++)
+            {
+                oneLine = readFile.ReadLine();                  // Read each line into string
+                string[] tempLine = oneLine.Split(' ');         // Split into string array
+
+                for (int col = 0; col < 20; col++)
+                {
+                    numArray[row, col] = int.Parse(tempLine[col]);      // convert to int array
+                }
+            } 
+//  I will loop through the four combos (across, down, diag-down, diag-up) in the areas they are valid.
+//  Very literal brute force here; logical, but not so elegant.
+
+            for (int row = 0; row < 20; row++)          // ACROSS valid for all rows, cols 0-16
+            {
+                for (int col = 0; col < 17; col++)
+                {
+                    int prod = 1;
+                    for (int a = col; a < col + 4; a++)
+                    {
+                        prod *= numArray[row, a];
+                    }
+                    if (prod > maxProd) maxProd = prod;
+                }
+            }          
+            for (int row = 0; row < 17; row++)          // DOWN valid for rows 0-16, all cols 
+            {
+                for (int col = 0; col < 20; col++)
+                {
+                    int prod = 1;
+                    for (int a = row; a < row + 4; a++)
+                    {
+                        prod *= numArray[a, col];
+                    }
+                    if (prod > maxProd) maxProd = prod;
+                }
+            }
+            for (int row = 0; row < 17; row++)          // DIAG-DOWN valid for rows & cols 0-16
+            {
+                for (int col = 0; col < 17; col++)
+                {
+                    int prod = 1;
+                    for (int a = 0; a <  4; a++)
+                    {
+                        prod *= numArray[row+a, col+a];
+                    }
+                    if (prod > maxProd) maxProd = prod;
+                }
+            }
+            for (int row = 3; row < 20; row++)          // DIAG-UP valid for rows 3-19, cols 0-16
+            {
+                for (int col = 0; col < 17; col++)
+                {
+                    int prod = 1;
+                    for (int a = 0; a < 4; a++)
+                    {
+                        prod *= numArray[row - a, col + a];
+                    }
+                    if (prod > maxProd) maxProd = prod;
+                }
+            }
+            Console.WriteLine("Max Product of 4 in any direction = {0:g}",maxProd);
+            Console.ReadKey(true);
+        }
