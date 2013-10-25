@@ -1,0 +1,31 @@
+//  Fairly brute force, took about 4 secs on my old XP system.
+//  Did only factor to the square root, and did check for actual square root (means one less divisor).
+
+static void Main(string[] args)
+        {
+            int triangle = 1, indx = 1;
+            bool loopTest = true;
+
+            while (loopTest)
+            {
+                indx++;
+                triangle += indx;                                       // get next triangle #
+                if (numDivisors(triangle) > 500) loopTest = false;    
+            }
+
+            Console.WriteLine("First triangle number with over 500 divisors = {0:g}", triangle);
+            Console.ReadLine();
+        }
+
+        public static int numDivisors(int triNum)
+        {
+            int numDiv = 2;
+
+            for (int i = 2; i <= Math.Floor(Math.Sqrt(triNum)); i++)    // loop to sqrt only
+            {
+                if (triNum % i == 0) numDiv +=2;                        // count divisor pair
+            }
+            if (triNum % Math.Sqrt(triNum) == 0) numDiv -= 1;     // check if actual square root
+ //           Console.WriteLine("Triangle: {0:g}  NumDivisors: {1:g}", triNum, numDiv);
+            return numDiv;
+        }
