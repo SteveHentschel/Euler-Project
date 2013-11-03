@@ -1,0 +1,57 @@
+//  Well, for some reason I decided to take the high road on this one and created a re-usable
+//    function for adding two strings in their text form.
+//  Is this useful ?  Probably only in cases where you want to add strings longer
+//    than a Long Int can hold, I guess.
+
+
+static void Main(string[] args)
+        {
+            string tally = "", nxtNum = "";
+
+            string p13Nums = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorials\\Euler Project\\Prob13Nums.txt";
+            Console.WriteLine(System.IO.File.Exists(p13Nums));         // File path ok?
+
+            System.IO.StreamReader readFile;                            // Set reader object
+            readFile = new System.IO.StreamReader(p13Nums);            // Assign to number file
+
+            tally = readFile.ReadLine();
+            do
+            {
+                nxtNum = readFile.ReadLine();
+                tally = stringAdd(tally, nxtNum);
+      
+            } while (readFile.Peek() != -1);
+
+
+            Console.WriteLine("Final Tally = {0:g}", tally);
+            Console.ReadLine();
+        }
+
+        public static string stringAdd(string str1, string str2)    // Add two strings as if numbers
+        {                                                           // Really, only good for ints longer than 32 digits
+            int str1Len = str1.Length, str2Len = str2.Length;
+            string sumString = "", revString = "";
+            int sum = 0, carry = 0;
+
+            // First check if strings are same length; if not, pad the shorter one to match
+            if (str1Len != str2Len) {
+                if (str1Len > str2Len) str2 = str2.PadLeft(str1Len,'0');
+                else str1 = str1.PadLeft(str2Len,'0');
+            }
+
+            for (int i = str1.Length - 1; i >= 0; i--)      //  Loop backwards thru strings
+            {
+                sum = int.Parse(str1[i].ToString()) + int.Parse(str2[i].ToString()) + carry;
+                sumString += (sum%10).ToString();           //   Attach next digit to sum
+                carry = (sum >= 10) ? 1 : 0;                //   Set carry 'one' if needed
+                sum = 0;
+            }
+            if (carry == 1) sumString += '1';               //   Last carry digit, if needed
+
+            for (int j = sumString.Length - 1; j >= 0; j--)     //  have to reverse string ...
+            {
+                revString += sumString[j];                      // (must be easier way ?)
+            }
+
+            return revString;
+        }
