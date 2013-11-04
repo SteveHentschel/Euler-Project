@@ -1,0 +1,31 @@
+//  Simple brute force again here.  Took about 8 seconds on my old XP system.
+//  Could have speeded it up by storing previous strings and stopping when I hit them.
+//  Also found you need to use long int for 'n' or else the you overflow,
+//    and the sequence does not converge on 1.
+
+
+static void Main(string[] args)
+        {
+            long n = 0;
+            int terms = 0, maxTerms = 0, maxIndx = 0;
+
+            for (int indx = 2; indx < 1000000; indx++)
+            {
+                n = indx;
+                terms = 1;
+ 
+                do
+                {
+                    n = ((n%2)==0) ? (n/2): (3*n + 1);
+                    terms++;
+                } while (n != 1);
+
+                if (terms > maxTerms) {
+                    maxTerms = terms;
+                    maxIndx = indx;
+                }
+            }
+
+            Console.WriteLine("MaxTerms = {0:g} with Index {1:g}", maxTerms, maxIndx);
+            Console.ReadLine();
+        }
