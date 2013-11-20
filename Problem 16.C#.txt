@@ -1,0 +1,37 @@
+//  I struggled with the lack of precision in Math.Pow(), then finally googled for some help.
+//  Didn't want to build my own BigInt library, so ended up going with 'String Math',
+//  using List to hold the big number's digits, going backwards though.
+
+
+static void Main(string[] args)
+        {
+            int temp, carry, bigNumSum = 0, limit = 1000;
+            List<int> bigNum = new List<int>();
+            bigNum.Add(2);
+
+            for (int i = 2; i <= limit; i++)
+            {
+                carry = 0;
+                for (int j = 0; j < bigNum.Count; j++)       // Loop through big number
+                {  
+                    temp = 2 * bigNum[j] + carry;            // Double current digit
+
+                    if (temp < 10) {                         //  No carry case (under 10)
+                        bigNum[j] = temp;
+                        carry = 0;
+                    }
+                    else {                                   //  Use carry if over 10
+                        bigNum[j] = temp - 10;
+                        carry = 1;
+                    }
+                }
+                if (carry == 1) bigNum.Add(1);               // Add a digit to big number
+            }
+            
+            foreach (int indx in bigNum) bigNumSum += indx;  // Sum digits of big number
+
+            Console.WriteLine("#Digits={0:g}  bigNumSum = {1:g}",bigNum.Count ,bigNumSum);
+            Console.ReadLine();
+
+        }
+    }
