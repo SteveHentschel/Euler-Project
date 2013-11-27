@@ -1,0 +1,44 @@
+// After the readfile, there are really only 4 lines of code for this one.
+// I took about two days thinking about this one, studying various stuff like
+// memoization and dynamic programming and playing with recursion, before I finally 
+// found that all you need to do is add from the bottom up, picking the larger of the two
+// base numbers to add to the one on top of them.  So simple in the end, and I was very 
+// happy to have figured it out on my own.
+
+
+static void Main(string[] args)
+        {
+            int[,] pyramid = new int[15,15];
+            string oneLine = null;
+
+
+            string p18Array = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorials\\Euler Project\\Prob18Pyramid.txt";
+            Console.WriteLine(System.IO.File.Exists(p18Array));         // File path ok?
+
+            System.IO.StreamReader readFile;                            // Set reader object
+            readFile = new System.IO.StreamReader(p18Array);            // Assign to array file
+
+            for (int row = 0; row < 15; row++)
+            {
+                oneLine = readFile.ReadLine();                  // Read each line into string
+                string[] tempLine = oneLine.Split(' ');         // Split into string array
+
+                for (int col = 0; col <= row; col++)
+                {
+                    pyramid[row, col] = int.Parse(tempLine[col]);      // convert to int array
+                }
+            }
+            readFile.Close();
+
+            for (int row = 14; row >= 0; row--)
+            {
+                for (int col = 0; col < row; col++)
+                {
+                    pyramid[row-1, col] += Math.Max(pyramid[row,col], pyramid[row, col+1]);
+
+                    Console.Write(" {0:g} ",pyramid[row-1,col]);
+                }
+                Console.WriteLine();
+            }
+            Console.Read();
+        }
