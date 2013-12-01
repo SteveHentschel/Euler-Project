@@ -5,20 +5,22 @@
 // base numbers to add to the one on top of them.  So simple in the end, and I was very 
 // happy to have figured it out on my own.
 
+// Expanded pyramid array for Problem #68 (yes, I should make it a variable, I know).
+
 
 static void Main(string[] args)
         {
-            int[,] pyramid = new int[15,15];
+            int[,] pyramid = new int[100,100];
             string oneLine = null;
 
 
-            string p18Array = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorials\\Euler Project\\Prob18Pyramid.txt";
+            string p18Array = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorials\\Euler Project\\Prob68Pyramid.txt";
             Console.WriteLine(System.IO.File.Exists(p18Array));         // File path ok?
 
             System.IO.StreamReader readFile;                            // Set reader object
             readFile = new System.IO.StreamReader(p18Array);            // Assign to array file
 
-            for (int row = 0; row < 15; row++)
+            for (int row = 0; row < 100; row++)
             {
                 oneLine = readFile.ReadLine();                  // Read each line into string
                 string[] tempLine = oneLine.Split(' ');         // Split into string array
@@ -30,7 +32,7 @@ static void Main(string[] args)
             }
             readFile.Close();
 
-            for (int row = 14; row >= 0; row--)
+            for (int row = 99; row >= 0; row--)
             {
                 for (int col = 0; col < row; col++)
                 {
