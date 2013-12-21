@@ -1,0 +1,23 @@
+//  Becomes trivial when you use the System.Numerics reference with BigInteger type.
+//  I guess that's good, cuz I'm no whiz in math, and you should use the tools available.
+//  slh
+
+
+static void Main(string[] args)
+        {
+            BigInteger bigNum = 1;
+            int factSum = 0, fact = 100;
+
+            for (int indx = 2; indx <= fact; indx++)
+            {
+                bigNum *= indx;
+            }
+
+            string bigString = bigNum.ToString();
+
+            foreach (Char digit in bigString)
+                factSum += Int32.Parse(digit.ToString());
+
+            Console.WriteLine("Sum of digits in 100! = {0:g}", factSum);
+            Console.ReadLine();
+        }
