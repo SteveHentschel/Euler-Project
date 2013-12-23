@@ -1,0 +1,37 @@
+// Not too hard on this one.  Main problems were not to count the numbers twice, and
+// to make sure that my divisor sums stayed in range (at least for the max=300 test).
+// slh
+
+
+static void Main(string[] args)
+        {
+            int max = 10000;
+            int[] divSums = new int[max];               // array of divisor sums
+            int amicSum = 0, temp = 0;
+
+            for (int i = 1; i < max; i++)
+            {
+                divSums[i] = GetSumDivisors(i);         // set divisor sum array
+            }
+
+            for (int j = 2; j < max; j++)               
+            {
+                if (divSums[j] < max)                   // make sure divisor sum is under 10k
+                {
+                    temp = divSums[j];
+                    if (j != temp && divSums[temp] == j) amicSum += j;
+                }
+            }
+            Console.WriteLine("Sum of amicable nums under 10k = {0:g}", amicSum);
+            Console.ReadLine();
+        }
+
+        static int GetSumDivisors(int xy)
+        {
+            int sumPart = 0;
+            for (int i = 1; i <= xy/2; i++)
+            {
+                if (xy % i == 0) sumPart += i;
+            }
+            return sumPart;
+        }
