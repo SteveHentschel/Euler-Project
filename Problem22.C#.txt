@@ -1,0 +1,37 @@
+//  Finally learned to use the timer function, learned from a Euler post.
+//  Probably didn't need to use a list, but oh well, works fine in 45 msecs.
+//  slh
+
+
+static void Main(string[] args)
+        {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            
+            long nsSum = 0;
+            int nameSum;
+
+            string p22names = "C:\\Documents and Settings\\All\\Desktop\\Ad Stuff\\Web Dev\\Tutorials\\Euler Project\\Prob22Names.txt";
+            Console.WriteLine(System.IO.File.Exists(p22names));         // File path ok?
+
+            System.IO.StreamReader readFile;                            // Set reader object
+            readFile = new System.IO.StreamReader(p22names);            // Assign to array file
+            
+            string oneLine = readFile.ReadLine();                       // Read file and alphabetize
+            List <string> namesList = oneLine.Split(',').OrderBy(x => x).ToList();
+
+            for (int indx = 0; indx < namesList.Count; indx++)          
+            {
+                nameSum = 0;
+                for (int sp = 1; sp < namesList[indx].Length - 1; sp++)
+                {
+                    nameSum += Char.ConvertToUtf32(namesList[indx], sp) - 64;
+                }
+                nsSum += (indx + 1) * nameSum;
+            }
+
+            sw.Stop();
+            Console.WriteLine("Sum of name scores = {0:g}", nsSum);
+            Console.WriteLine("Time = {0:g}", sw.Elapsed);
+            Console.ReadKey(true);
+        }
