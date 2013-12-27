@@ -1,0 +1,58 @@
+// Did the brute force method again.  Setting the first list of abundant numbers took 4.5secs.
+// Too long, I know, but I didn't do any prime factoring or speed ups.
+// Double loop thru all the numbers to 28123 setting bool flag for sums of abundants.
+// then summing all those not flagged at the end.  slh
+
+
+
+static void Main(string[] args)
+        {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+
+            int nSum = 0, hiMax = 28123;
+            List<int> abundantList = new List<int>();                   // initial list
+
+            for (int i = 2; i <= hiMax; i++)                           // set all abundants
+            {
+                if (GetSumDivisors(i) > i) abundantList.Add(i);
+            }
+
+            int numAbund = abundantList.Count();
+            bool[] abundSum = new bool[hiMax + 1];
+
+            for (int i = 0; i < numAbund; i++)
+            {
+                for (int j = i; j < numAbund; j++)
+                {
+                    if (abundantList[i] + abundantList[j] <= hiMax)
+                    {
+                        abundSum[abundantList[i] + abundantList[j]] = true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            
+            for (int i = 1; i <= hiMax; i++)
+            {
+                if (!abundSum[i]) nSum += i;
+            }
+
+            sw.Stop();
+            Console.WriteLine("Non abundant sum = {0:g}", nSum);
+            Console.WriteLine("Elapsed Time = {0:g}", sw.Elapsed);
+            Console.ReadLine();
+        }
+
+        static int GetSumDivisors(int xy)
+        {
+            int sumPart = 0;
+            for (int i = 1; i <= xy / 2; i++)
+            {
+                if (xy % i == 0) sumPart += i;
+            }
+            return sumPart;
+        }
