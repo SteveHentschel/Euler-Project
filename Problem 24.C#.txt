@@ -1,0 +1,36 @@
+// I thought about brute force, but couldn't come up with an algorithm quickly.  
+// Then playing around with pencil and paper, I found the correlation between 
+//  one digit of permutations and n-1 factorial.  Then it was easy. 
+// This is the first time I came up with the 'elegant' solution before brute force.  slh
+
+
+static void Main(string[] args)
+        {
+            int lenLex = 10, targetLex = 1000000;
+            List<int> startList = new List<int>(Enumerable.Range(0, lenLex));
+            List<int> finList = new List<int>();
+
+            targetLex -= 1;
+            for (int loop = lenLex; loop > 1; loop--)                          
+            {
+                int div = nFactorial(loop - 1);
+                finList.Add(startList[targetLex/div]);
+                startList.Remove(startList[targetLex/div]);
+                targetLex %= div;
+            }
+            finList.Add(startList[0]);
+
+            Console.Write("Millionth lex perm = ");
+            foreach (int num in finList) Console.Write(num + ", ");
+            Console.ReadLine();
+        }
+
+        public static int nFactorial(int n)
+        {
+            int numFact = 1;
+            for (int i = n; i >= 1; i--)
+            {
+                numFact *= i;
+            }
+            return numFact;
+        }
