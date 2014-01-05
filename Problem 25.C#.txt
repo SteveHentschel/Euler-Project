@@ -1,0 +1,56 @@
+//  This was pretty easy as I pulled the StringAdd function created previously for Prob 13.
+//  If not using BigIntegers, then I guess you have to use string math.  slh
+
+
+
+static void Main(string[] args)
+        {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            
+            string fibN1 = "1", fibN2 = "1", fibN = null;
+            int fibCount = 2;
+
+            do {
+                fibN = stringAdd(fibN1, fibN2);
+                fibCount++;
+                fibN1 = fibN2;
+                fibN2 = fibN;
+            } while (fibN.Length < 1000);
+
+            sw.Stop();
+            Console.WriteLine("First Fib term with 1k digits = {0:g}", fibCount);
+            Console.WriteLine("Elapsed Time = {0:g}", sw.Elapsed);
+            Console.ReadLine();
+        }
+
+
+        public static string stringAdd(string str1, string str2)    // Add two strings as if numbers
+        {                                                           // Really, only good for ints longer than 32 digits
+            int str1Len = str1.Length, str2Len = str2.Length;
+            string sumString = "", revString = "";
+            int sum = 0, carry = 0;
+
+            // First check if strings are same length; if not, pad the shorter one to match
+            if (str1Len != str2Len)
+            {
+                if (str1Len > str2Len) str2 = str2.PadLeft(str1Len, '0');
+                else str1 = str1.PadLeft(str2Len, '0');
+            }
+
+            for (int i = str1.Length - 1; i >= 0; i--)      //  Loop backwards thru strings
+            {
+                sum = int.Parse(str1[i].ToString()) + int.Parse(str2[i].ToString()) + carry;
+                sumString += (sum % 10).ToString();           //   Attach next digit to sum
+                carry = (sum >= 10) ? 1 : 0;                //   Set carry 'one' if needed
+                sum = 0;
+            }
+            if (carry == 1) sumString += '1';               //   Last carry digit, if needed
+
+            for (int j = sumString.Length - 1; j >= 0; j--)     //  have to reverse string ...
+            {
+                revString += sumString[j];                      // (must be easier way ?)
+            }
+
+            return revString;
+        }
